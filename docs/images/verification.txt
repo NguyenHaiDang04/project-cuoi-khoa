@@ -1,0 +1,38 @@
+﻿PASS: Initialization can run twice without duplicate students or accounts.
+PASS: Login initializes SQL, Enter is Login, Escape is Exit.
+PASS: ErrorProvider rejects both blank login fields.
+PASS: Show password checkbox works.
+PASS: Wrong password is rejected through the login button.
+PASS: Login button authenticates the seeded admin.
+PASS: SQL-like username does not bypass authentication.
+PASS: Seeded students, courses and classes can be read through BUS (4/3/3).
+PASS: Admin workspace loads the seven training and password tabs.
+PASS: Create student from the WinForms editor.
+PASS: Edit existing student and reload persisted address.
+PASS: Student search uses literal parameters.
+PASS: Student search finds Vietnamese names.
+PASS: Create course and tuition from the form.
+PASS: Class end date before start date is rejected.
+PASS: Create class with course, teacher, dates and capacity.
+PASS: Enroll student through the form.
+PASS: Duplicate enrollment is rejected.
+PASS: Full class rejects another student without a partial insert.
+PASS: Course fee changes preserve the tuition snapshot of existing enrollments.
+PASS: Cancel enrollment through the form and free class capacity.
+PASS: Restore canceled enrollment when class still has room.
+PASS: Save scores through form, calculate 40/60 average 8.60 and pass classification.
+PASS: Scores above 10 are rejected by BUS.
+PASS: Enrollment with scores cannot be canceled.
+PASS: Foreign keys protect students with existing enrollments.
+PASS: Report counts enrollments, completion, passing results and original tuition.
+PASS: CSV export preserves Vietnamese data and UTF-8 BOM for Excel.
+PASS: CSV quotes commas and quotation marks and neutralizes formula-like cells.
+PASS: Staff cannot delete records even when BUS is called directly.
+PASS: Staff can open training tabs but delete is disabled.
+PASS: Password confirmation mismatch is rejected.
+PASS: Change password works from form.
+PASS: Restarting/seeding preserves changed account passwords.
+PASS: Admin can delete a stored result.
+PASS: Concurrent enrollment for the last seat admits exactly one student.
+PASS: Reinitialization preserves newly created students and enrollments.
+RESULT: PASS (37 checks)

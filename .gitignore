@@ -1,0 +1,8 @@
+.vs/
+[Bb]in/
+[Oo]bj/
+TestOutput/
+*.user
+*.suo
+*.mdf
+*.ldf

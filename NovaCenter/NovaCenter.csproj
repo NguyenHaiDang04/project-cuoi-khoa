@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
+    <Platform Condition="'$(Platform)' == ''">AnyCPU</Platform>
+    <ProjectGuid>{65B72C81-7D7E-4AB3-B4F7-23F1AE7C0001}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>NovaCenter</RootNamespace>
+    <AssemblyName>NovaCenter</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <LangVersion>7.3</LangVersion>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <WarningLevel>4</WarningLevel>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Compile Include="DTO\Models.cs" />
+    <Compile Include="DAL\Db.cs" />
+    <Compile Include="DAL\DatabaseInitializer.cs" />
+    <Compile Include="DAL\StudentRepository.cs" />
+    <Compile Include="DAL\TrainingRepository.cs" />
+    <Compile Include="DAL\StudyRepository.cs" />
+    <Compile Include="DAL\AccountRepository.cs" />
+    <Compile Include="BUS\PasswordHasher.cs" />
+    <Compile Include="BUS\AuthService.cs" />
+    <Compile Include="BUS\StudentService.cs" />
+    <Compile Include="BUS\TrainingService.cs" />
+    <Compile Include="BUS\StudyService.cs" />
+    <Compile Include="BUS\Validation.cs" />
+    <Compile Include="BUS\CsvExporter.cs" />
+    <Compile Include="GUI\LoginForm.cs"><SubType>Form</SubType></Compile>
+    <Compile Include="GUI\LoginForm.Designer.cs"><DependentUpon>LoginForm.cs</DependentUpon></Compile>
+    <Compile Include="GUI\MainForm.cs"><SubType>Form</SubType></Compile>
+    <Compile Include="GUI\MainForm.Designer.cs"><DependentUpon>MainForm.cs</DependentUpon></Compile>
+    <Compile Include="GUI\MainForm.Students.cs" />
+    <Compile Include="GUI\MainForm.Training.cs" />
+    <Compile Include="GUI\MainForm.Study.cs" />
+    <Compile Include="GUI\MainForm.Password.cs" />
+    <Compile Include="GUI\Ui.cs" />
+    <Compile Include="Tests\Verification.cs" />
+    <Compile Include="Program.cs" />
+    <None Include="App.config" />
+    <EmbeddedResource Include="..\Database\Schema.sql"><LogicalName>NovaCenter.Schema.sql</LogicalName></EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
