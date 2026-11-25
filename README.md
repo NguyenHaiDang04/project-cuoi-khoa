@@ -6,15 +6,15 @@
 
 Giao diện dùng các control WinForms thông dụng như TextBox, ComboBox, DateTimePicker, Button và DataGridView. Chương trình chia DTO, DAL, BUS và GUI để tách thông tin dữ liệu, truy vấn SQL, kiểm tra nghiệp vụ và xử lý nút bấm.
 
-| Phần việc | Chức năng |
-|---|---|
+| Phần việc  | Chức năng                                                                                           |
+| ------------ | ----------------------------------------------------------------------------------------------------- |
 | Đăng nhập | Kiểm tra tài khoản, hiện/ẩn mật khẩu, phân quyền quản trị/nhân viên và đổi mật khẩu |
-| Học viên | Thêm, sửa, xóa, tìm theo mã/tên/điện thoại và xuất danh sách CSV |
-| Khóa học | Thêm, sửa, xóa mã khóa, tên khóa, số giờ và học phí |
-| Lớp học | Chọn khóa, nhập giảng viên, thời gian học, sĩ số tối đa và trạng thái |
-| Đăng ký | Chọn học viên và lớp, lưu đăng ký, kiểm tra trùng và số chỗ còn lại |
-| Kết quả | Nhập điểm quá trình/cuối kỳ, tính điểm trung bình và xếp loại |
-| Thống kê | Đếm học viên theo lớp, số hoàn thành, số đạt và tổng học phí đăng ký |
+| Học viên   | Thêm, sửa, xóa, tìm theo mã/tên/điện thoại và xuất danh sách CSV                          |
+| Khóa học   | Thêm, sửa, xóa mã khóa, tên khóa, số giờ và học phí                                       |
+| Lớp học    | Chọn khóa, nhập giảng viên, thời gian học, sĩ số tối đa và trạng thái                   |
+| Đăng ký   | Chọn học viên và lớp, lưu đăng ký, kiểm tra trùng và số chỗ còn lại                   |
+| Kết quả    | Nhập điểm quá trình/cuối kỳ, tính điểm trung bình và xếp loại                           |
+| Thống kê   | Đếm học viên theo lớp, số hoàn thành, số đạt và tổng học phí đăng ký                |
 
 Quản trị viên có quyền xóa dữ liệu. Nhân viên nhập và cập nhật thông tin đào tạo. Mỗi người có thể tự đổi mật khẩu của mình.
 
@@ -22,11 +22,11 @@ Quản trị viên có quyền xóa dữ liệu. Nhân viên nhập và cập nh
 
 Mỗi thành viên phụ trách hai bảng dữ liệu cùng giao diện, truy vấn và kiểm tra nghiệp vụ tương ứng.
 
-| Thành viên | Hai bảng phụ trách | Công việc |
-|---|---|---|
-| Thành viên 1 | TaiKhoan, HocVien | Đăng nhập, đổi mật khẩu; thêm/sửa/xóa/tìm học viên và kiểm tra thông tin nhập |
-| Thành viên 2 | KhoaHoc, LopHoc | Quản lý khóa và lớp; liên kết lớp với khóa, kiểm tra ngày học, học phí và sĩ số |
-| Thành viên 3 | DangKy, KetQua | Ghi danh, chống trùng, kiểm tra lớp còn chỗ; nhập điểm, xếp loại, thống kê và xuất CSV |
+|    Thành viên    | Hai bảng phụ trách | Công việc                                                                                           |
+| :-----------------: | --------------------- | ----------------------------------------------------------------------------------------------------- |
+| Nguyễn Hải Đăng | TaiKhoan, HocVien     | Đăng nhập, đổi mật khẩu; thêm/sửa/xóa/tìm học viên và kiểm tra thông tin nhập        |
+| Đoàn Thành Đạt | KhoaHoc, LopHoc       | Quản lý khóa và lớp; liên kết lớp với khóa, kiểm tra ngày học, học phí và sĩ số     |
+| Ngô Hoàng Hải  | DangKy, KetQua        | Ghi danh, chống trùng, kiểm tra lớp còn chỗ; nhập điểm, xếp loại, thống kê và xuất CSV |
 
 Khối lượng dự kiến khoảng một phần ba cho mỗi người. Bảng phân công này là kế hoạch làm việc của nhóm, tên thành viên sẽ được bổ sung khi chốt danh sách.
 
@@ -62,15 +62,15 @@ Mỗi người phụ trách giao diện, truy vấn, kiểm tra dữ liệu và 
 
 ## Làm việc nhóm bằng Git
 
-Repo chung dự kiến là `NguyenHaiDang04/NovaCenter`. Mỗi thành viên tải một bản về máy và làm trên nhánh tương ứng.
+Repo dùng chung của nhóm là [project-cuoi-khoa](https://github.com/NguyenHaiDang04/project-cuoi-khoa). Mỗi thành viên tải một bản về máy và làm trên nhánh tương ứng.
 
-| Thành viên | Nhánh | Phần việc |
-|---|---|---|
-| Thành viên 1 | `hoc-vien` | Đăng nhập, học viên và đổi mật khẩu |
-| Thành viên 2 | `khoa-lop` | Khóa học và lớp học |
-| Thành viên 3 | `dang-ky-diem` | Đăng ký, kết quả và thống kê |
+| Thành viên   | Nhánh           | Phần việc                                   |
+| -------------- | ---------------- | --------------------------------------------- |
+| Thành viên 1 | `hoc-vien`     | Đăng nhập, học viên và đổi mật khẩu |
+| Thành viên 2 | `khoa-lop`     | Khóa học và lớp học                      |
+| Thành viên 3 | `dang-ky-diem` | Đăng ký, kết quả và thống kê          |
 
-1. Clone repo về máy rồi mở `NovaCenter.sln`.
+1. Chạy `git clone https://github.com/NguyenHaiDang04/project-cuoi-khoa.git` rồi mở `NovaCenter.sln` trong thư mục `project-cuoi-khoa`.
 2. Chuyển sang nhánh được phân công trước khi sửa code.
 3. Commit phần thay đổi của mình, push nhánh lên GitHub và tạo pull request vào `main`.
 4. Một thành viên khác xem thay đổi và ghép bài. Sau khi ghép, cả nhóm cập nhật bản mới về máy.
@@ -83,10 +83,10 @@ Repo chung dự kiến là `NguyenHaiDang04/NovaCenter`. Mỗi thành viên tả
 3. Ứng dụng tự tạo `NovaCenterDB`, bảng, dữ liệu và tài khoản mẫu ở lần chạy đầu.
 4. Nếu dùng instance SQL Server khác, sửa chuỗi kết nối trong [App.config](NovaCenter/App.config). Có thể chạy trước [ScriptDB.sql](Database/ScriptDB.sql) bằng SSMS.
 
-| Tài khoản mẫu | Mật khẩu | Quyền |
-|---|---|---|
-| admin | Admin@123 | Quản trị viên |
-| nhanvien | Nova@123 | Nhân viên |
+| Tài khoản mẫu | Mật khẩu | Quyền           |
+| ---------------- | ---------- | ---------------- |
+| admin            | Admin@123  | Quản trị viên |
+| nhanvien         | Nova@123   | Nhân viên      |
 
 Trong tab danh mục, bấm **Nhập mới** để thêm. Chọn một dòng trong bảng để sửa rồi bấm **Lưu**. Chương trình hỏi xác nhận trước khi xóa.
 
