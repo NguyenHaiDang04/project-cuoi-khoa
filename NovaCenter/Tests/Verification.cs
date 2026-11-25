@@ -294,11 +294,82 @@ namespace NovaCenter.Tests
 
             studyService.DeleteResult(registration);
             Check(studyService.Results(classId).Rows[0]["DiemTB"] == DBNull.Value,"Admin can delete a stored result.");
+            CheckCatalogRules(course,classId);
             CheckConcurrentCapacity(course);
             DatabaseInitializer.Ensure();
             Check(studentService.Students().Rows.Count == 5 && studyService.Registrations(classId).Rows.Count == 1,
                 "Reinitialization preserves newly created students and enrollments.");
             form.Close();
+        }
+
+        private void CheckCatalogRules(int course, int classId)
+        {
+            var student = new Student
+            {
+                Code="HV-TEMP",Name="Học viên kiểm tra xóa",BirthDate=new DateTime(2004,1,1),
+                Gender="Nam",Phone="0901000006",Email="",Address="",Active=true
+            };
+            student.Id = studentService.SaveStudent(student);
+            student.Name = "Học viên đã cập nhật";
+            studentService.SaveStudent(student);
+            Check((string)studentService.Students("HV-TEMP").Rows[0]["HoTen"] == student.Name,
+                "Student update persists through BUS and DAL.");
+            studentService.DeleteStudent(student.Id);
+            Check(studentService.Students("HV-TEMP").Rows.Count == 0,
+                "Admin can delete a student without registrations.");
+
+            var temporaryCourse = new Course
+            {
+                Code="TEMP",Name="Khóa kiểm tra",Hours=20,Fee=1000000,Active=true
+            };
+            temporaryCourse.Id = trainingService.SaveCourse(temporaryCourse);
+            temporaryCourse.Name = "Khóa đã cập nhật";
+            trainingService.SaveCourse(temporaryCourse);
+            Check((string)trainingService.Courses().Rows.Cast<DataRow>()
+                .Single(r => (int)r["Id"] == temporaryCourse.Id)["TenKhoa"] == temporaryCourse.Name,
+                "Course update persists through BUS and DAL.");
+
+            var temporaryClass = new ClassRoom
+            {
+                Code="TEMP-01",CourseId=temporaryCourse.Id,Teacher="Thầy Minh",
+                StartDate=DateTime.Today,EndDate=DateTime.Today.AddDays(20),Capacity=10,Status="Mở"
+            };
+            temporaryClass.Id = trainingService.SaveClass(temporaryClass);
+            temporaryClass.Capacity = 12;
+            trainingService.SaveClass(temporaryClass);
+            Check((int)trainingService.Classes().Rows.Cast<DataRow>()
+                .Single(r => (int)r["Id"] == temporaryClass.Id)["SiSoToiDa"] == 12,
+                "Class update persists through BUS and DAL.");
+            trainingService.DeleteClass(temporaryClass.Id);
+            trainingService.DeleteCourse(temporaryCourse.Id);
+            Check(!trainingService.Classes().Rows.Cast<DataRow>().Any(r => (int)r["Id"] == temporaryClass.Id)
+                && !trainingService.Courses().Rows.Cast<DataRow>().Any(r => (int)r["Id"] == temporaryCourse.Id),
+                "Admin can delete a class without registrations and then its unused course.");
+
+            var inactiveCourse = new Course
+            {
+                Id=course,Code="PYTHON",Name="Python cơ bản",Hours=40,Fee=2500000,Active=false
+            };
+            trainingService.SaveCourse(inactiveCourse);
+            Tab("tabClasses");
+            Click("btnReload");
+            Select("gridClasses","Id",classId);
+            Set("txtTeacher","Cô Hương (cập nhật)");
+            Find<DateTimePicker>("dtEnd").Value = DateTime.Today.AddDays(40);
+            Click("btnSaveClass");
+            DataRow updated = trainingService.Classes().Rows.Cast<DataRow>().Single(r => (int)r["Id"] == classId);
+            Check((string)updated["GiangVien"] == "Cô Hương (cập nhật)"
+                && (DateTime)updated["NgayKetThuc"] == DateTime.Today.AddDays(40),
+                "Existing class can update dates and teacher while its original course is inactive.");
+            Reject<InvalidOperationException>(() => trainingService.SaveClass(new ClassRoom
+            {
+                Code="BLOCKED",CourseId=course,Teacher="Thầy Minh",StartDate=DateTime.Today,
+                EndDate=DateTime.Today.AddDays(20),Capacity=10,Status="Mở"
+            }),"Inactive course still rejects creation of a new class.");
+            Reject<InvalidOperationException>(() => studyService.Enroll(4,classId),
+                "Inactive course still rejects new enrollments in an existing class.");
+            inactiveCourse.Active = true;
+            trainingService.SaveCourse(inactiveCourse);
         }
 
         private void CheckConcurrentCapacity(int course)

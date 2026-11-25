@@ -1,130 +1,204 @@
-# Quản lý học viên Trung tâm Tin học Nova
+# ĐỒ ÁN CUỐI KỲ MÔN LẬP TRÌNH .NET
 
-Đồ án C# Windows Forms và SQL Server dành cho nhóm 3 sinh viên học môn Lập trình .NET.
+## 1. Thông tin đề tài và nhóm
 
-## Phạm vi thực hiện
+**Tên đề tài**
 
-Giao diện dùng các control WinForms thông dụng như TextBox, ComboBox, DateTimePicker, Button và DataGridView. Chương trình chia DTO, DAL, BUS và GUI để tách thông tin dữ liệu, truy vấn SQL, kiểm tra nghiệp vụ và xử lý nút bấm.
+Xây dựng phần mềm quản lý học viên tại Trung tâm Tin học Nova
 
-| Phần việc  | Chức năng                                                                                           |
-| ------------ | ----------------------------------------------------------------------------------------------------- |
-| Đăng nhập | Kiểm tra tài khoản, hiện/ẩn mật khẩu, phân quyền quản trị/nhân viên và đổi mật khẩu |
-| Học viên   | Thêm, sửa, xóa, tìm theo mã/tên/điện thoại và xuất danh sách CSV                          |
-| Khóa học   | Thêm, sửa, xóa mã khóa, tên khóa, số giờ và học phí                                       |
-| Lớp học    | Chọn khóa, nhập giảng viên, thời gian học, sĩ số tối đa và trạng thái                   |
-| Đăng ký   | Chọn học viên và lớp, lưu đăng ký, kiểm tra trùng và số chỗ còn lại                   |
-| Kết quả    | Nhập điểm quá trình/cuối kỳ, tính điểm trung bình và xếp loại                           |
-| Thống kê   | Đếm học viên theo lớp, số hoàn thành, số đạt và tổng học phí đăng ký                |
+**Lớp**
 
-Quản trị viên có quyền xóa dữ liệu. Nhân viên nhập và cập nhật thông tin đào tạo. Mỗi người có thể tự đổi mật khẩu của mình.
+D19QTANM1
 
-## Phân công nhóm 3 người
+| STT | Họ và tên | Mã sinh viên | Module phụ trách |
+|---|---|---|---|
+| 1 | Nguyễn Hải Đăng | 24810320310 | Đăng nhập và học viên |
+| 2 | Đoàn Thành Đạt | 24810320056 | Khóa học và lớp học |
+| 3 | Ngô Hoàng Hải | 24810320650 | Đăng ký, kết quả và thống kê |
 
-Mỗi thành viên phụ trách hai bảng dữ liệu cùng giao diện, truy vấn và kiểm tra nghiệp vụ tương ứng.
+**Repo của nhóm**
 
-|    Thành viên    | Hai bảng phụ trách | Công việc                                                                                           |
-| :-----------------: | --------------------- | ----------------------------------------------------------------------------------------------------- |
-| Nguyễn Hải Đăng | TaiKhoan, HocVien     | Đăng nhập, đổi mật khẩu; thêm/sửa/xóa/tìm học viên và kiểm tra thông tin nhập        |
-| Đoàn Thành Đạt | KhoaHoc, LopHoc       | Quản lý khóa và lớp; liên kết lớp với khóa, kiểm tra ngày học, học phí và sĩ số     |
-| Ngô Hoàng Hải  | DangKy, KetQua        | Ghi danh, chống trùng, kiểm tra lớp còn chỗ; nhập điểm, xếp loại, thống kê và xuất CSV |
+[NguyenHaiDang04/project-cuoi-khoa](https://github.com/NguyenHaiDang04/project-cuoi-khoa)
 
-Khối lượng dự kiến khoảng một phần ba cho mỗi người. Bảng phân công này là kế hoạch làm việc của nhóm, tên thành viên sẽ được bổ sung khi chốt danh sách.
+## 2. Giới thiệu và mục tiêu
 
-### File của thành viên 1
+Trung tâm Tin học Nova cần theo dõi thông tin học viên, các khóa đang mở, danh sách lớp, đăng ký và kết quả học tập. Chương trình hỗ trợ nhân viên nhập dữ liệu, tra cứu và xem thống kê trên cùng một ứng dụng Windows Forms.
 
-- [LoginForm.cs](NovaCenter/GUI/LoginForm.cs) và [LoginForm.Designer.cs](NovaCenter/GUI/LoginForm.Designer.cs)
-- [MainForm.Students.cs](NovaCenter/GUI/MainForm.Students.cs) và [MainForm.Password.cs](NovaCenter/GUI/MainForm.Password.cs)
-- [StudentService.cs](NovaCenter/BUS/StudentService.cs) và [AuthService.cs](NovaCenter/BUS/AuthService.cs)
-- [StudentRepository.cs](NovaCenter/DAL/StudentRepository.cs) và [AccountRepository.cs](NovaCenter/DAL/AccountRepository.cs)
+Mục tiêu của đề tài là vận dụng các kiến thức đã học về C#, WinForms, kiểm tra dữ liệu nhập và ADO.NET với SQL Server. Phạm vi thực hiện gồm sáu bảng dữ liệu và các màn hình quản lý cơ bản.
 
-### File của thành viên 2
+[Phân tích yêu cầu, quy tắc nghiệp vụ và tiêu chí kiểm tra](docs/PHAN_TICH_YEU_CAU.md).
 
-- [MainForm.Training.cs](NovaCenter/GUI/MainForm.Training.cs)
-- [TrainingService.cs](NovaCenter/BUS/TrainingService.cs)
-- [TrainingRepository.cs](NovaCenter/DAL/TrainingRepository.cs)
+## 3. Chức năng của chương trình
 
-### File của thành viên 3
+| Module | Chức năng |
+|---|---|
+| Đăng nhập | Kiểm tra tài khoản, hiện/ẩn mật khẩu, phân quyền và đổi mật khẩu |
+| Học viên | Thêm, sửa, xóa, tìm theo mã/tên/điện thoại và xuất CSV |
+| Khóa học | Quản lý mã khóa, tên khóa, thời lượng, học phí và trạng thái |
+| Lớp học | Chọn khóa, nhập giảng viên, thời gian học, sĩ số và trạng thái |
+| Đăng ký | Ghi danh, kiểm tra trùng, kiểm tra chỗ còn lại và cập nhật trạng thái |
+| Kết quả | Nhập điểm quá trình, cuối kỳ, tính điểm trung bình và xếp loại |
+| Thống kê | Đếm học viên theo lớp, số hoàn thành, số đạt, tổng học phí đăng ký và xuất CSV |
 
-- [MainForm.Study.cs](NovaCenter/GUI/MainForm.Study.cs)
-- [StudyService.cs](NovaCenter/BUS/StudyService.cs)
-- [StudyRepository.cs](NovaCenter/DAL/StudyRepository.cs)
-- [CsvExporter.cs](NovaCenter/BUS/CsvExporter.cs)
+Quản trị viên có quyền thêm, sửa và xóa. Nhân viên được nhập, cập nhật và xem dữ liệu đào tạo. Quyền xóa được kiểm tra trong tầng BUS.
 
-Mỗi người phụ trách giao diện, truy vấn, kiểm tra dữ liệu và thử chức năng trong module của mình.
-
-### Công việc chung
-
-- Cùng thống nhất quan hệ giữa sáu bảng trong [Schema.sql](Database/Schema.sql) và các đối tượng trong [Models.cs](NovaCenter/DTO/Models.cs).
-- Dùng chung [Db.cs](NovaCenter/DAL/Db.cs), [Ui.cs](NovaCenter/GUI/Ui.cs) và [Validation.cs](NovaCenter/BUS/Validation.cs).
-- [MainForm.cs](NovaCenter/GUI/MainForm.cs) nạp dữ liệu và gọi ba nhóm xử lý. Khi ghép bài, cập nhật bố cục các tab trong [MainForm.Designer.cs](NovaCenter/GUI/MainForm.Designer.cs) cùng một lượt để tránh sửa trùng file.
-- Mỗi người tự kiểm tra dữ liệu đúng, dữ liệu thiếu/sai và trường hợp trùng của module mình.
-- Cả nhóm thử luồng từ học viên → lớp → đăng ký → kết quả; chụp ảnh, hoàn thiện README và chuẩn bị thuyết trình. Khi bảo vệ, mỗi người trình bày phần mã nguồn mình phụ trách.
-
-## Làm việc nhóm bằng Git
-
-Repo dùng chung của nhóm là [project-cuoi-khoa](https://github.com/NguyenHaiDang04/project-cuoi-khoa). Mỗi thành viên tải một bản về máy và làm trên nhánh tương ứng.
-
-| Thành viên   | Nhánh           | Phần việc                                   |
-| -------------- | ---------------- | --------------------------------------------- |
-| Thành viên 1 | `hoc-vien`     | Đăng nhập, học viên và đổi mật khẩu |
-| Thành viên 2 | `khoa-lop`     | Khóa học và lớp học                      |
-| Thành viên 3 | `dang-ky-diem` | Đăng ký, kết quả và thống kê          |
-
-1. Chạy `git clone https://github.com/NguyenHaiDang04/project-cuoi-khoa.git` rồi mở `NovaCenter.sln` trong thư mục `project-cuoi-khoa`.
-2. Chuyển sang nhánh được phân công trước khi sửa code.
-3. Commit phần thay đổi của mình, push nhánh lên GitHub và tạo pull request vào `main`.
-4. Một thành viên khác xem thay đổi và ghép bài. Sau khi ghép, cả nhóm cập nhật bản mới về máy.
-5. Những file chung như `MainForm.Designer.cs` và `Schema.sql` được thống nhất trước khi sửa.
-
-## Cách chạy trên máy
-
-1. Cài Visual Studio với **.NET desktop development**, .NET Framework 4.8 Developer Pack và SQL Server LocalDB.
-2. Mở [NovaCenter.sln](NovaCenter.sln), nhấn **F5**.
-3. Ứng dụng tự tạo `NovaCenterDB`, bảng, dữ liệu và tài khoản mẫu ở lần chạy đầu.
-4. Nếu dùng instance SQL Server khác, sửa chuỗi kết nối trong [App.config](NovaCenter/App.config). Có thể chạy trước [ScriptDB.sql](Database/ScriptDB.sql) bằng SSMS.
-
-| Tài khoản mẫu | Mật khẩu | Quyền           |
-| ---------------- | ---------- | ---------------- |
-| admin            | Admin@123  | Quản trị viên |
-| nhanvien         | Nova@123   | Nhân viên      |
-
-Trong tab danh mục, bấm **Nhập mới** để thêm. Chọn một dòng trong bảng để sửa rồi bấm **Lưu**. Chương trình hỏi xác nhận trước khi xóa.
-
-## Quy tắc cần giải thích khi bảo vệ
+### Quy tắc nghiệp vụ
 
 - Mã học viên, khóa và lớp phải duy nhất.
-- Một học viên có một đăng ký cho mỗi lớp. Đăng ký đã hủy có thể được khôi phục khi còn chỗ.
-- Học viên hoặc khóa ngừng hoạt động, lớp kết thúc hay lớp đã đầy sẽ không nhận đăng ký mới.
-- Khi lưu đăng ký, kiểm tra sĩ số và ghi dữ liệu trong cùng giao dịch để giữ đúng số chỗ.
+- Ngày sinh phải trước hôm nay. Ngày kết thúc lớp phải từ ngày bắt đầu trở đi.
+- Một học viên có một đăng ký cho mỗi lớp. Lớp đầy, lớp đã kết thúc hoặc khóa ngừng hoạt động sẽ không nhận đăng ký mới.
+- Đăng ký đã hủy có thể khôi phục nếu còn chỗ. Đăng ký có điểm cần xóa điểm trước khi hủy.
 - Học phí được lưu theo thời điểm đăng ký.
-- Điểm trong khoảng 0–10. Điểm TB = 40% quá trình + 60% cuối kỳ. Từ 5 trở lên là Đạt.
-- Dữ liệu liên quan được bảo vệ bằng khóa ngoại. Đăng ký có điểm cần xóa điểm trước khi hủy.
-- Tổng học phí trong thống kê là giá trị các đăng ký, chưa phải số tiền đã thu.
+- Lớp đã có đăng ký giữ nguyên khóa học. Có thể cập nhật giảng viên, ngày học hoặc trạng thái của lớp cũ khi khóa đó ngừng hoạt động.
+- Điểm trong khoảng 0–10. Nhóm sử dụng công thức **40% điểm quá trình + 60% điểm cuối kỳ**, làm tròn hai chữ số và xếp loại Đạt từ 5 trở lên.
+- Tổng học phí trong thống kê là giá trị đăng ký. Phần thu tiền và công nợ nằm ngoài phạm vi phiên bản này.
 
-## Kiểm tra chương trình
+Công thức điểm và quy tắc ghi danh là quy ước của nhóm cho đề tài.
 
-Mở PowerShell trong thư mục dự án rồi chạy:
+## 4. Công nghệ và cấu trúc mã nguồn
+
+- C# và .NET Framework 4.8.
+- Windows Forms với TextBox, ComboBox, DateTimePicker, Button, ErrorProvider và DataGridView.
+- SQL Server LocalDB hoặc SQL Server.
+- ADO.NET dùng SqlConnection, SqlCommand, SqlParameter, SqlDataAdapter và SqlTransaction.
+
+```text
+project-cuoi-khoa/
+├── README.md
+├── NovaCenter.sln
+├── Database/
+│   ├── ScriptDB.sql
+│   └── Schema.sql
+├── NovaCenter/
+│   ├── DTO/
+│   ├── DAL/
+│   ├── BUS/
+│   ├── GUI/
+│   │   ├── LoginForm.cs
+│   │   ├── LoginForm.Designer.cs
+│   │   ├── MainForm.cs
+│   │   ├── MainForm.Designer.cs
+│   │   └── MainForm.*.cs
+│   ├── Tests/
+│   ├── App.config
+│   └── Program.cs
+├── docs/
+│   ├── PHAN_TICH_YEU_CAU.md
+│   └── images/
+└── Verify.ps1
+```
+
+DTO chứa đối tượng dữ liệu. DAL thực hiện truy vấn SQL. BUS kiểm tra dữ liệu, quyền sử dụng và quy tắc nghiệp vụ. GUI hiển thị và xử lý các nút bấm. Các file `MainForm.*.cs` chia phần xử lý của cùng một form theo module.
+
+## 5. Thiết kế CSDL
+
+| Bảng | Nội dung chính |
+|---|---|
+| TaiKhoan | Tên đăng nhập, họ tên, mật khẩu đã băm, vai trò và trạng thái |
+| HocVien | Mã học viên, họ tên, ngày sinh, giới tính và liên hệ |
+| KhoaHoc | Mã khóa, tên khóa, số giờ, học phí và trạng thái |
+| LopHoc | Mã lớp, khóa học, giảng viên, ngày học và sĩ số |
+| DangKy | Học viên, lớp, ngày đăng ký, học phí và trạng thái |
+| KetQua | Đăng ký, điểm quá trình, điểm cuối kỳ, điểm TB và ghi chú |
+
+Quan hệ dữ liệu gồm KhoaHoc → LopHoc, HocVien → DangKy, LopHoc → DangKy và DangKy → KetQua. Tài khoản dùng để đăng nhập và phân quyền.
+
+[Script tạo CSDL và dữ liệu mẫu](Database/ScriptDB.sql).
+
+## 6. Phân công nhóm
+
+| Thành viên | Hai bảng phụ trách | Các file xử lý chính | Nhánh |
+|---|---|---|---|
+| Nguyễn Hải Đăng | TaiKhoan, HocVien | LoginForm, MainForm.Students, MainForm.Password, AuthService, StudentService, AccountRepository, StudentRepository | `hoc-vien` |
+| Đoàn Thành Đạt | KhoaHoc, LopHoc | MainForm.Training, TrainingService, TrainingRepository | `khoa-lop` |
+| Ngô Hoàng Hải | DangKy, KetQua | MainForm.Study, StudyService, StudyRepository, CsvExporter | `dang-ky-diem` |
+
+Mỗi thành viên phụ trách giao diện, truy vấn, kiểm tra dữ liệu và thử chức năng của module mình. Các phần dùng chung gồm [Models.cs](NovaCenter/DTO/Models.cs), [Db.cs](NovaCenter/DAL/Db.cs), [Ui.cs](NovaCenter/GUI/Ui.cs), [Validation.cs](NovaCenter/BUS/Validation.cs), bố cục form và script CSDL.
+
+Cả nhóm thống nhất cấu trúc bảng, ghép chương trình, kiểm thử luồng hoàn chỉnh và chuẩn bị báo cáo, thuyết trình. Bảng trên thể hiện nhiệm vụ của từng thành viên.
+
+## 7. Hướng dẫn cài đặt và chạy
+
+### Môi trường
+
+- Windows.
+- Visual Studio có workload **.NET desktop development** và .NET Framework 4.8 Developer Pack.
+- SQL Server LocalDB hoặc SQL Server.
+
+### Các bước chạy
+
+1. Tải repo về máy bằng lệnh sau.
+
+   ```powershell
+   git clone https://github.com/NguyenHaiDang04/project-cuoi-khoa.git
+   ```
+
+2. Mở [NovaCenter.sln](NovaCenter.sln) trong thư mục `project-cuoi-khoa`.
+3. Chọn project **NovaCenter** làm Startup Project, nhấn **F5**.
+4. Lần chạy đầu, ứng dụng tự tạo `NovaCenterDB`, bảng, dữ liệu và tài khoản mẫu.
+5. Nếu dùng instance SQL Server khác, sửa `Data Source` trong [App.config](NovaCenter/App.config). Có thể chạy trước [ScriptDB.sql](Database/ScriptDB.sql) bằng SSMS. Tài khoản kết nối cần quyền tạo CSDL khi CSDL chưa tồn tại.
+
+| Tài khoản mẫu | Mật khẩu | Quyền |
+|---|---|---|
+| admin | Admin@123 | Quản trị viên |
+| nhanvien | Nova@123 | Nhân viên |
+
+### Thao tác chức năng
+
+- Bấm **Nhập mới** trước khi thêm học viên, khóa hoặc lớp. Chọn một dòng trong bảng để sửa rồi bấm **Lưu**.
+- Tab **Đăng ký học** chọn học viên và lớp rồi bấm **Đăng ký vào lớp**.
+- Tab **Kết quả học tập** lọc lớp, chọn học viên, nhập hai điểm và bấm **Lưu kết quả**.
+- Tab **Thống kê** bấm **Cập nhật thống kê** hoặc **Xuất báo cáo CSV**.
+- Tab **Đổi mật khẩu** yêu cầu nhập mật khẩu hiện tại và xác nhận mật khẩu mới.
+
+### Làm việc trên GitHub
+
+Mỗi thành viên chuyển sang nhánh được phân công trước khi sửa code, commit phần thay đổi và tạo pull request vào `main`. Những file chung như `MainForm.Designer.cs` và `Schema.sql` được thống nhất trước khi sửa. Sau khi ghép bài, cả nhóm cập nhật bản mới về máy.
+
+## 8. Kiểm thử và đánh giá
+
+Bộ kiểm thử đi qua đăng nhập, CRUD, tìm kiếm, ghi danh, chặn trùng/chặn lớp đầy, nhập điểm, phân quyền và xuất CSV. Có kiểm tra khởi tạo CSDL nhiều lần, giữ học phí cũ, cập nhật lớp thuộc khóa ngừng hoạt động và hai thao tác cùng đăng ký suất cuối.
+
+Bản nộp đã build thành công và đạt **45/45 kiểm tra** trên Windows với SQL Server LocalDB. [Nhật ký kết quả thực tế](docs/images/verification.txt).
+
+Có thể chạy lại bằng PowerShell tại thư mục chứa solution.
 
 ```powershell
 .\Verify.ps1
 ```
 
-Script build và thử thao tác form trên CSDL LocalDB riêng, lưu ảnh/log vào `TestOutput` và xóa CSDL thử khi xong. Bản thu gọn đạt **37/37 kiểm tra**. Xem [nhật ký kiểm tra](docs/images/verification.txt).
+Script dùng CSDL `Nova_Test_...` riêng, lưu ảnh/log trong `TestOutput` và xóa CSDL thử sau khi kết thúc.
 
-## Hình ảnh
+## 9. Hình ảnh chương trình
+
+### Đăng nhập
 
 ![Đăng nhập](docs/images/01_login.png)
 
+### Quản lý học viên
+
 ![Học viên](docs/images/02_students.png)
+
+### Quản lý khóa học
 
 ![Khóa học](docs/images/03_courses.png)
 
+### Quản lý lớp học
+
 ![Lớp học](docs/images/04_classes.png)
+
+### Đăng ký và thông báo lớp đầy
 
 ![Đăng ký](docs/images/05_enrollment.png)
 
+### Kết quả học tập
+
 ![Kết quả](docs/images/06_results.png)
 
+### Thống kê
+
 ![Thống kê](docs/images/07_report.png)
+
+### Đổi mật khẩu
 
 ![Đổi mật khẩu](docs/images/08_password.png)

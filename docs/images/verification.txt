@@ -33,6 +33,14 @@ PASS: Password confirmation mismatch is rejected.
 PASS: Change password works from form.
 PASS: Restarting/seeding preserves changed account passwords.
 PASS: Admin can delete a stored result.
+PASS: Student update persists through BUS and DAL.
+PASS: Admin can delete a student without registrations.
+PASS: Course update persists through BUS and DAL.
+PASS: Class update persists through BUS and DAL.
+PASS: Admin can delete a class without registrations and then its unused course.
+PASS: Existing class can update dates and teacher while its original course is inactive.
+PASS: Inactive course still rejects creation of a new class.
+PASS: Inactive course still rejects new enrollments in an existing class.
 PASS: Concurrent enrollment for the last seat admits exactly one student.
 PASS: Reinitialization preserves newly created students and enrollments.
-RESULT: PASS (37 checks)
+RESULT: PASS (45 checks)

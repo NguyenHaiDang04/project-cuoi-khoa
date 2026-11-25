@@ -38,15 +38,15 @@ namespace NovaCenter.DAL
         {
             return Transaction((connection, transaction) =>
             {
+                int currentCourseId = 0;
                 if (c.Id > 0)
                 {
-                    int course;
                     using (var command = Command(connection,transaction, @"
                         SELECT KhoaHocId FROM dbo.LopHoc WITH(UPDLOCK,HOLDLOCK) WHERE Id=@id",P("@id",c.Id)))
                     {
                         object value = command.ExecuteScalar();
                         if (value == null) throw new InvalidOperationException("Lớp không còn tồn tại.");
-                        course = (int)value;
+                        currentCourseId = (int)value;
                     }
                     int count;
                     using (var command = Command(connection,transaction, @"
@@ -57,15 +57,18 @@ namespace NovaCenter.DAL
                     using (var command = Command(connection,transaction,
                         "SELECT COUNT(*) FROM dbo.DangKy WHERE LopHocId=@id",P("@id",c.Id)))
                     {
-                        if (course != c.CourseId && (int)command.ExecuteScalar() > 0)
+                        if (currentCourseId != c.CourseId && (int)command.ExecuteScalar() > 0)
                             throw new InvalidOperationException("Lớp đã có đăng ký nên không thể đổi khóa học.");
                     }
                 }
 
-                using (var command = Command(connection,transaction,
-                    "SELECT COUNT(*) FROM dbo.KhoaHoc WHERE Id=@id AND HoatDong=1",P("@id",c.CourseId)))
-                    if ((int)command.ExecuteScalar() != 1)
-                        throw new InvalidOperationException("Khóa học đã ngừng hoạt động hoặc bị xóa.");
+                if (currentCourseId != c.CourseId)
+                {
+                    using (var command = Command(connection,transaction,
+                        "SELECT COUNT(*) FROM dbo.KhoaHoc WHERE Id=@id AND HoatDong=1",P("@id",c.CourseId)))
+                        if ((int)command.ExecuteScalar() != 1)
+                            throw new InvalidOperationException("Khóa học đã ngừng hoạt động hoặc bị xóa.");
+                }
 
                 var args = new[] { P("@id",c.Id),P("@ma",c.Code),P("@khoa",c.CourseId),
                     P("@gv",c.Teacher),P("@bd",c.StartDate.Date),P("@kt",c.EndDate.Date),
