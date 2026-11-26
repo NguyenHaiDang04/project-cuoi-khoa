@@ -28,6 +28,11 @@ Mục tiêu của đề tài là vận dụng các kiến thức đã học về
 
 [Phân tích yêu cầu, quy tắc nghiệp vụ và tiêu chí kiểm tra](docs/PHAN_TICH_YEU_CAU.md).
 
+### Tài liệu để từng thành viên bắt đầu
+
+- [Hướng dẫn từng bước và phân công theo file](docs/HUONG_DAN_THUC_HIEN.md) gồm cách chạy, đọc code, bài thực hành chung và cách ghép bằng Git.
+- [Ma trận kiểm thử chi tiết](docs/KE_HOACH_KIEM_THU.md) gồm 22 nhóm tình huống, kết quả mong đợi, người phụ trách và những mục cần thử tay.
+
 ## 3. Chức năng của chương trình
 
 | Module | Chức năng |
@@ -160,6 +165,8 @@ Mỗi thành viên chuyển sang nhánh được phân công trước khi sửa 
 Bộ kiểm thử đi qua đăng nhập, CRUD, tìm kiếm, ghi danh, chặn trùng/chặn lớp đầy, nhập điểm, phân quyền và xuất CSV. Có kiểm tra khởi tạo CSDL nhiều lần, giữ học phí cũ, cập nhật lớp thuộc khóa ngừng hoạt động và hai thao tác cùng đăng ký suất cuối.
 
 Bản nộp đã build thành công và đạt **45/45 kiểm tra** trên Windows với SQL Server LocalDB. [Nhật ký kết quả thực tế](docs/images/verification.txt).
+
+45 ca tự động xác nhận những luồng có trong bộ kiểm tra. Hộp thoại xác nhận xóa, chọn nơi lưu CSV và chạy trên máy thứ hai còn cần nhóm thử tay theo [kế hoạch kiểm thử](docs/KE_HOACH_KIEM_THU.md).
 
 Có thể chạy lại bằng PowerShell tại thư mục chứa solution.
 
